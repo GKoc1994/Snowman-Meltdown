@@ -1,61 +1,39 @@
+"""Snowman Meltdown: guess the secret word letter by letter."""
 import random
 
 # List of secret words
 WORDS = ["python", "git", "github", "snowman", "meltdown"]
+MAX_MISTAKES = 3
+
 
 def get_random_word():
-    """Selects a random word from the list."""
-    return WORDS[random.randint(0, len(WORDS) - 1)]
+    """Select and return a random word from the list."""
+    return random.choice(WORDS)
 
-class Snowman:
-  def __init__(self):
-    self.mistakes = 0 
-    self.correct_chars = []
-    self.secret_word= get_random_word()
-    self.user_input = " "
-    self.max_mistakes = 6
-    self.game_over = False
-
-  def greet_user(self):
-    print("Welcome to Snowman Meltdown!")
-    print("Secret word selected: " + secret_word)  # for testing, later remove this line
-    print("_ " * len(self.secret_word))
-
-  def get_letter(self):
-    while True:
-      self.user_input = input( "Guess a letter: ").lower()
-      input_not_alpha = self.user_input.isalpha()
-      input_formated = len(self.user_input)
-      input_in_correct_list = False
-      input_in_mistake_list = code
-      if not (len(self.user_input) == 1 and self.user_input.isalpha()):
-        break
-    print("Welcome to Snowman Meltdown!")
-    print("Secret word selected: " + secret_word)  # for testing, later remove this line
-  
-  def compare_letters(self):
-    print("Welcome to Snowman Meltdown!")
-    print("Secret word selected: " + secret_word)  # for testing, later remove this line
-
-  def evaluate_results(self):
-    print("Welcome to Snowman Meltdown!")
-    print("Secret word selected: " + secret_word)  # for testing, later remove this line
-
-  def inform_user(self):
-    print("Welcome to Snowman Meltdown!")
-    print("Secret word selected: " + secret_word)  # for testing, later remove this line
 
 def play_game():
-    game = Snowman()
-    game.greet_user()
-    game.get_letter()
-    game.compare_letters()
-    game.evaluate_results()
-    game.inform_user()
-    # TODO: Build your game loop here.
-    # For now, simply prompt the user once:
-    guess = input("Guess a letter: ").lower()
-    print("You guessed:", guess)
-    
+    """Play one round: the player guesses letters until the word is found
+    or the maximum number of mistakes is reached."""
+    secret_word = get_random_word()
+    guessed_letters = []
+    mistakes = 0
+    print("Welcome to Snowman Meltdown!")
+
+    while mistakes < MAX_MISTAKES:
+        guess = input("Guess a letter: ").lower()
+        guessed_letters.append(guess)
+        if guess in secret_word:
+            print(f"Good guess! '{guess}' is in the word.")
+        else:
+            mistakes += 1
+            print(f"Sorry, '{guess}' is not in the word.")
+        print(" ".join(letter if letter in guessed_letters else "_"
+                       for letter in secret_word))
+        if all(letter in guessed_letters for letter in secret_word):
+            print("Congratulations, you saved the snowman!")
+            return
+    print(f"Game Over! The word was: {secret_word}")
+
+
 if __name__ == "__main__":
     play_game()
