@@ -67,3 +67,12 @@ def play_game():
 
     print(f"Game Over! The snowman melted. The word was: {secret_word}")
     return False
+
+
+def ask_play_again():
+    """Ask the user if they want to play another round."""
+    while True:
+        answer = input("Do you want to play again? (y/n): ").strip().lower()
+        if answer in ("y", "n"):
+            return answer == "y"
+        print("Please enter 'y' or 'n'.")
